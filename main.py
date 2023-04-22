@@ -3,19 +3,20 @@ import requests
 
 cities = ["лондон", "шереметьево", "череповец"]
 url_template = 'https://wttr.in/{}'
-params = {"nTqM-10": "",
-          "lang": "ru"}
+params = {
+    "nTqM": "",
+    "lang": "ru"
+}
 
 
 def main():
     for city in cities:
         url = url_template.format(city)
-        try:
-            response = requests.get(url, params=params)
-            response.raise_for_status()
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
             print(response.text)
-        except requests.ConnectionError:
-            print("Не удалось выполнить запрос. Ошибка соединения")
+        else:
+            pass
 
 
 if __name__ == '__main__':
